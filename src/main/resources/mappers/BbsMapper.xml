@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!--suppress ALL -->
+<mapper namespace="com.mysite.jikpoom.mappers.BbsMapper">
+    <select id="getList" resultType="bbs">
+        <![CDATA[
+        select /*+ index_desc(tb PK_BOARD) */ * from bbs where bno > 0
+        ]]>
+    </select>
+    <sql id="criteria">
+        <if test="type != null and keyword != null">
+            <trim prefix="(" suffix=") and" prefixOverrides="OR">
+                <foreach item="type" collection="typeArr">
+                    <trim prefix="OR">
+                        <choose>
+                            <when test="type == 'T'.toString()">
+                                (title LIKE '%'||#{keyword}||'%')
+                            </when>
+                            <when test="type == 'C'.toString()">
+                                (content LIKE '%'||#{keyword}||'%')
+                            </when>
+                            <when test="type == 'W'.toString()">
+                                (writer LIKE '%'||#{keyword}||'%')
+                            </when>
+                        </choose>
+                    </trim>
+                </foreach>
+            </trim>
+        </if>
+    </sql>
+    <select id="getListWithPaging" resultType="bbs">
+        <![CDATA[
+        select bno, title, content, writer, regdate, updatedate
+        from(
+            select /*+ index_desc(PK_BBS) */
+            rownum rn, bno, title, content, writer, regdate, updatedate
+            from bbs
+            where
+        ]]>
+        <include refid="criteria"></include>
+        <![CDATA[
+            rownum <= #{pageNum} * #{amount}
+            )
+        where rn > (#{pageNum}-1) * #{amount}
+        ]]>
+    </select>
+
+
+    <insert id="insert">
+        insert into bbs(bno, title, content, writer)
+        values (seq_board.nextval, #{title}, #{content}, #{writer})
+    </insert>
+    <insert id="insertSelectKey_bno">
+        /* 태그 안에서는 주석 처리를 이와 같은 태그로 해야함 */
+        /* 게시글 등록 전 다음 시퀀스를 가져와서 insertSelectKey_bno의 매개변수로 전달 */
+        <selectKey keyProperty="bno" order="BEFORE" resultType="long">
+            select seq_board.nextval from dual
+        </selectKey>
+        /* 위에서 전달받은 bno를 사용한다. */
+        insert into bbs(bno, title, content, writer)
+        values (#{bno}, #{title}, #{content}, #{writer})
+    </insert>
+    <select id="read" resultType="bbs">
+        select * from bbs where bno = #{bno}
+    </select>
+    <delete id="delete">
+        delete from bbs where bno = #{bno}
+    </delete>
+    <update id="update">
+        update bbs set title = #{title}
+                           , content = #{content}
+                           , writer = #{writer}
+                           , updatedate = sysdate
+        where bno = #{bno}
+    </update>
+    <select id="getTotal" resultType="_int">
+        <![CDATA[
+            select count(*) from bbs where
+        ]]>
+        <include refid="criteria"></include>
+        <![CDATA[
+            bno>0
+        ]]>
+    </select>
+</mapper>
