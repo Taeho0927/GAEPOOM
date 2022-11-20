@@ -6,6 +6,7 @@
     <title>List</title>
     <script src="https://kit.fontawesome.com/c3f903aa69.js" crossorigin="anonymous"></script>
     <link rel="stylesheet" href="/css/navbar.css?after" type="text/css">
+    <link rel="stylesheet" href="/css/list.css?after" type="text/css">
 </head>
 <body>
 <nav class="navbar">
@@ -28,30 +29,18 @@
 <div class="row justify-content-center">
     <div>
         <h3><a href="/bbs/register">글 등록</a></h3>
-        <table>
-            <thead>
-            <tr>
-                <th>번호</th>
-                <th>제목</th>
-                <th class="writer">작성자</th>
-                <th class="regdate">작성일</th>
-                <th class="updatedate">수정일</th>
-            </tr>
-            </thead>
-            <tbody>
+        <div class="container">
             <th:block th:each="bbs:${list}">
-                <tr th:object="${bbs}">
-                    <td th:text="*{bno}"></td>
-                    <td><a th:text="*{title}" th:href="@{/bbs/get(bno=*{bno})}"></a></td>
-                    <td class="writer" th:text="*{writer}"></td>
-                    <td class="regdate" th:text="*{regdate}"></td>
-                    <td class="updatedate" th:text="*{updatedate}"></td>
-                </tr>
+            <ol>
+                <li th:object="${bbs}">
+                    <span th:text="*{bno}" class="td_bno"></span>
+                    <p><a th:text="*{title}" th:href="@{/bbs/get(bno=*{bno})}"></a></p>
+                    <p class="regdate" th:text="*{regdate}"></p>
+                    <p th:text="*{writer}" class="td_writer writer"></p>
+                </li>
+            </ol>
             </th:block>
-            </tbody>
-            <tfoot>
-            </tfoot>
-        </table>
+        </div>
         <form method="get" action="/bbs/list" id="searchForm" th:object="${pageMaker}">
             <div id="searchWrap" th:object="${criteria}">
                 <select name="type">
