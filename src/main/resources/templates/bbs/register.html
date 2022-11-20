@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+  <title>Register</title>
+</head>
+<body>
+<h1>Register(새 글 등록)</h1>
+<form method="post" action="/bbs/register" id="registForm">
+  <h4>제목</h4>
+  <input name="title" placeholder="Title" type="text" />
+  <h4>내용</h4>
+  <textarea name="content" rows="6" placeholder="Content"></textarea>
+  <h4>작성자</h4>
+  <input name="writer" placeholder="Writer" type="text" />
+  <h4>첨부파일</h4>
+  <div class="uploadDiv">
+    <input type="file" name="uploadFile" multiple />
+  </div>
+  <div class="uploadResult">
+    <ul></ul>
+  </div>
+  <input type="submit" value="Register" />
+</form>
+
+</body>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
+<script>
+
+
+  $(document).ready(function(){
+
+    let regex = new RegExp("(.*?)\.(exe|zip|sh|alz)$");
+    let maxSize = 5242880; // 5MB
+    let inputFile = $(".uploadDiv input")
+
+    let uploadResult = $(".uploadResult ul");
+
+    function showUploadFile(uploadResultArr){
+      let str = "";
+      $(uploadResultArr).each(function(i, obj){
+        console.log(obj.image);
+        if(!obj.image){
+          str += "<li data-path='" + obj.uploadPath + "' data-uuid='" + obj.uuid + "' ";
+          str += "data-filename='" + obj.fileName + "' data-type='" + obj.image + "'>";
+          str += "<img src='/img/attach.png' width='20px'>"  + obj.fileName + "</li>";
+          console.log(str);
+
+
+        }
+        else{
+          let fileCallPath = encodeURIComponent(obj.uploadPath + "/s_" + obj.fileName);
+          console.log(fileCallPath);
+          str += "<li data-path='" + obj.uploadPath + "' data-uuid='" + obj.uuid + "' ";
+          str += "data-filename='" + obj.fileName + "' data-type='" + obj.image + "'>";
+          str += "<img src='/upload/display?fileName=" + fileCallPath + "'> " + obj.fileName + "</li>";
+        }
+      });
+
+      uploadResult.append(str)
+    }
+
+    // 1. 첨부파일의 확장자 제한, 용량 제한
+    function checkExtension(fileName, fileSize){
+      if(regex.test(fileName)){
+        alert('업로드할 수 없는 파일 형식입니다.');
+        return false;
+      }
+      if(fileSize >= maxSize){
+        alert('용량이 너무 큽니다.');
+        return false;
+      }
+      return true;
+    }
+
+    $("input[type='file']").change(function(e){
+      let formData = new FormData();
+      let inputFile =$("input[name='uploadFile']");
+      let files = inputFile[0].files;
+      console.log(files);
+
+      // formData에 file추가
+      for(let i=0; i<files.length; i++){
+        if(!checkExtension(files[i].name, files[i].size)){
+          console.log("11" + files[i].name);
+          return;
+        }
+        console.log(files[i].name);
+        formData.append("uploadFile", files[i])
+      }
+
+      $.ajax({
+        url: "/upload/uploadAjaxAction",
+        processData : false,
+        contentType : false,
+        data : formData,
+        type : "POST",
+        success: function(result){
+          alert("upload OK");
+          console.log(result);
+          showUploadFile(result);
+          inputFile.val("");
+        }
+      });
+    });
+
+    $("input[type='submit']").on("click", function(e){
+      e.preventDefault();
+      let form = $("form#registForm");
+      let str = "";
+
+      $(".uploadResult ul li").each(function(i, obj){
+        console.log("1 " + $(obj).data("filename"));
+        str += "<input type='hidden' name='attachList[" + i + "].fileName' value='" + $(obj).data("filename") + "'>";
+        str += "<input type='hidden' name='attachList[" + i + "].uuid' value='" + $(obj).data("uuid") + "'>";
+        str += "<input type='hidden' name='attachList[" + i + "].uploadPath' value='" + $(obj).data("path") + "'>";
+        str += "<input type='hidden' name='attachList[" + i + "].image' value='" + $(obj).data("type") + "'>";
+      });
+
+      form.append(str).submit();
+    });
+  });
+</script>
+</html>

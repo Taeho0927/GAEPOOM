@@ -20,7 +20,7 @@ import lombok.extern.slf4j.Slf4j;
 @Controller
 @Slf4j
 @RequiredArgsConstructor
-@RequestMapping("/bbs/*")
+@RequestMapping("bbs/*")
 public class BbsController {
     @Autowired
     private final BbsService service;
@@ -40,7 +40,7 @@ public class BbsController {
 
 
     @GetMapping("register")
-    public void register() {}
+    public void register(){}
 
 
     @PostMapping("register")
