@@ -37,6 +37,8 @@ public class BbsController {
     public String doLogin(){
         return "bbs/login";
     }
+    @GetMapping("logout")
+    public String doLogout(){return "bbs/login/logout";}
 
 
     @GetMapping("register")

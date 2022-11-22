@@ -32,6 +32,19 @@ public class KakaoLoginController {
             System.out.println(session.getAttribute("userName")+"님 반갑습니다");
         }
 
+        return "bbs/index";
+    }
+
+    @RequestMapping(value = "/logout")
+    public String logout(HttpSession session){
+        String access_Token = (String) session.getAttribute("access_Token");
+
+        if (access_Token != null && !"".equals(access_Token)){
+            KakaoAPI.kakaoLogout(access_Token);
+            session.removeAttribute("access_Token");
+            session.removeAttribute("userId");
+        }
+        System.out.println("로그아웃 완료");
         return "bbs/login";
     }
 }

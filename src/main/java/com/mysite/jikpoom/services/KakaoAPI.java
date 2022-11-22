@@ -3,6 +3,7 @@ package com.mysite.jikpoom.services;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import com.google.gson.JsonElement;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.io.*;
@@ -12,7 +13,6 @@ import java.util.HashMap;
 
 @Service
 public class KakaoAPI {
-
     public String getKaKaoAccessToken(String code){
         String access_Token="";
         String refresh_Token ="";
@@ -105,11 +105,33 @@ public class KakaoAPI {
             userInfo.put("email", email);
 
         } catch (IOException e) {
-            // TODO Auto-generated catch block
             e.printStackTrace();
         }
-
         return userInfo;
+    }
+    public static void kakaoLogout(String access_Token){
+        String reqURL = "https://kapi.kakao.com/v1/user/logout";
+        try {
+            URL url = new URL(reqURL);
+            HttpURLConnection conn = (HttpURLConnection) url.openConnection();
+            conn.setRequestMethod("POST");
+            conn.setRequestProperty("Authorization","Bearer "+access_Token);
+
+            int responseCode = conn.getResponseCode();
+            System.out.println("responseCode :"+responseCode);
+
+            BufferedReader br = new BufferedReader(new InputStreamReader(conn.getInputStream()));
+
+            String result = "";
+            String line="";
+
+            while ((line = br.readLine()) != null){
+                result += line;
+            }
+            System.out.println(result);
+        }catch (IOException e){
+            e.printStackTrace();
+        }
     }
 }
 
