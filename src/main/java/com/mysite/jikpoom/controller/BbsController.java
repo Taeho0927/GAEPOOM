@@ -1,7 +1,9 @@
 package com.mysite.jikpoom.controller;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
+import com.mysite.jikpoom.services.KakaoAPI;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -37,8 +39,24 @@ public class BbsController {
     public String doLogin(){
         return "bbs/login";
     }
-    @GetMapping("logout")
-    public String doLogout(){return "bbs/login/logout";}
+    @GetMapping("index")
+    public String moveIndex(){
+        return "bbs/index";
+    }
+    @RequestMapping(value = "/logout")
+    public String logout(HttpSession session){
+        String access_Token = (String) session.getAttribute("access_Token");
+
+        if (access_Token != null && !"".equals(access_Token)){
+            KakaoAPI.kakaoLogout(access_Token);
+            session.removeAttribute("access_Token");
+            session.removeAttribute("userId");
+        }
+        System.out.println("로그아웃 완료");
+        return "bbs/index";
+    }
+//    @GetMapping("logout")
+//    public String doLogout(){return "bbs/login/logout";}
 
 
     @GetMapping("register")
