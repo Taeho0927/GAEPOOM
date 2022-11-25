@@ -4,5 +4,6 @@
 <configuration>
     <typeAliases>
         <typeAlias type="com.mysite.jikpoom.beans.vo.BbsVO" alias="bbs" />
+        <typeAlias type="com.mysite.jikpoom.beans.vo.ReplyVO" alias="ReplyVO" />
     </typeAliases>
 </configuration>

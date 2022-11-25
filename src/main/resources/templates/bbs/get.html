@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+    <style>
+        .line {
+            border-bottom: 1px solid #ff8b77;
+        }
+    </style>
+    <script src="/js/reply.js"></script>
+    <title>Get</title>
+</head>
+<body>
+<h1>게시글 상세보기</h1>
+<form method="post" action="/bbs/remove" th:object="${bbs}" >
+    <h4>번호</h4><input name="bno" type="text" th:field="*{bno}" readonly />
+    <h4>제목</h4><input name="title" type="text" th:field="*{title}" readonly />
+    <h4>내용</h4>
+    <textarea name="content" rows="6" th:text="*{content}" readonly></textarea>
+    <h4>작성자</h4>
+    <input name="writer" type="text" th:field="*{writer}" readonly />
+    <br>
+    <input type="button" value="수정" onclick="goUpdate()" />
+    <input type="submit" value="삭제" />
+    <br><br>
+    <div class="fa fa-camera-retro fa-lg"><strong>댓글</strong></div><br>
+    <a href="javascript:void(0)" class="register">댓글 등록</a>
+
+    <div class="register-form" style="display:none;">
+        <h4>작성자</h4>
+        <input type="text" name="replier" placeholder="Replier" />
+        <h4>댓글</h4>
+        <textarea rows="6" name="reply" placeholder="Reply"></textarea>
+        <br>
+        <input type="button" class="btn btn-info finish" value="등록" />
+        <input type="button" class="btn btn-danger cancel" value="취소" />
+        <!-- <a href="javascript:void(0)" class="finish">등록</a> -->
+        <!-- <a href="Javascript:void(0)" class="cancel">취소</a> -->
+    </div>
+
+    <ul class="replies">
+    </ul>
+    <!--
+    <strong>user01</strong>
+    <p>Nice Shot!!</p>
+    <div class="line"></div>
+    <strong>user02</strong>
+    <p>Nice Shot!!</p>
+    <div class="line"></div>
+    -->
+</form>
+</body>
+<!-- Scripts -->
+<script th:inline="javascript">
+    /*<![CDATA[*/
+    function goUpdate(){
+        let bno = /*[[${bbs.getBno()}]]*/
+            location.href='/bbs/modify?bno=' + bno;
+    }
+    /*]]>*/
+</script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
+<script>
+
+    $(document).ready(function(){
+        console.log("JS TEST");
+
+        let bnoValue = [[${bbs.getBno()}]]
+        let replyUL = $(".replies");
+        let pageNum = 1;
+        showList(pageNum);
+
+        $(".register").on("click", function(e){
+            $(".register-form").show();
+            $(this).hide();
+        });
+
+        $(".cancel").on("click", function(e){
+            $(".register-form").hide();
+            $(".register").show();
+        });
+
+        $(".finish").on("click", function(){
+            let replier = $("input[name='replier']").val();
+            let reply = $("textarea[name='reply']").val();
+            console.log(replier + ":" + reply);
+            if(replier == "" || reply == ""){ return; }
+
+            replyService.add({bno:bnoValue, reply:reply, replier:replier},
+                function(result){
+                    alert(result);
+                    $("input[name='replier']").val("");
+                    $("textarea[name='reply']").val("");
+                    $(".register-form").hide();
+                    $(".register").show();
+                    pageNum = 1;
+                    showList(pageNum);
+                }
+            );
+        });
+
+        function showList(page){
+            replyService.getList({bno : bnoValue, page : page || 1},
+                function(list){
+                    let str = "";
+                    if(list == null || list.length == 0){
+                        replyUL.html("");
+                        return;
+                    }
+                    console.log("There are some replies");
+                    for(let i=0, len=list.length; i<len; i++){
+                        console.log(list[i].replier);
+                        str += "<li style='display:block' data-rno='" +list[i].rno+  "'>";
+                        str += "<strong>" + list[i].replier + "</strong>" + "(" + list[i].replyDate + ")";
+                        str += "<p>" + list[i].reply + "</p>";
+                        str += "<div class='line'></div></li>";
+                    }
+                    replyUL.html(str);
+                });
+
+        }
+
+        /*
+        replyService.add(
+            {reply:"JSTEST", replier:"tester", bno:bnoValue},
+            function(result){
+                alert("RESULT : " + result);
+            }
+        );
+        */
+
+        replyService.getList(
+            {bno:61, page:1},
+            function(list){
+                console.log(list);
+            }
+        );
+
+        /*
+        replyService.remove(30,
+            function(result){
+                alert("result : " + result);
+            }
+        );
+        */
+        /*
+        replyService.update(
+            {rno : 40, bno : bnoValue, reply : "Modified by JS"},
+            function(result){
+                alert("result : " + result)
+            }
+        );
+        */
+        /*
+        replyService.get(50,
+                function(result){
+                    console.log(result);
+                }
+        );
+        */
+    })
+</script>
+</html>
