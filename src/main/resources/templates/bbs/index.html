@@ -2,27 +2,82 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>GAEPOOM</title>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/css/style_wireframe.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
+    <script src="/js/progressbar.js"></script>
 </head>
-<body>
-    <a href="/bbs/logout">로그아웃</a>
-    <nav class="navbar">
-        <div class="navbar_logo">
-            <i class="fa-solid fa-person-walking-luggage"></i>
-            <a href="/bbs/index" class="navText">JIKPOOM</a>
+    <body>
+    <div id="wrap">
+        <header id="header" style="background-color:#a3c6c4">
+            <div class="container">
+                <div class="gap">
+                    <div class="left">
+                        <h1><a href="/bbs/index" title="home">GAEPOOM</a></h1>
+                    </div>
+                    <div class="right">
+                        <nav id="nav">
+                            <ul>
+                                <li><a href="/bbs/list" class="main-btn">All Contents</a></li>
+                                <li><a href="/bbs/list/front" class="main-btn">Front-end</a></li>
+                                <li><a href="/bbs/list/back" class="main-btn">Back-end</a></li>
+                                <li><a href="/bbs/list/spring" class="main-btn">Springboot</a></li>
+                                <li><a href="/bbs/list/e&b" class="main-btn">Error & Bugfix</a></li>
+                                <li><a href="/bbs/login">로그인<i class="fa-solid fa-right-to-bracket"></i></a></li>
+                                <li><a href="/bbs/logout">로그아웃</a></li>
+                                <li><a href="mypage"><i class="fa-solid fa-user"></i></a></li>
+                                <li><i class="fa-solid fa-comment"></i></li>
+                            </ul>
+                        </nav>
+                    </div>
+                </div>
+            </div>
+        </header>
+        <div class="scroll-bar-progress">
+            <div class="progress-container">
+                <div class="progress-bar" id="myBar"></div>
+            </div>
         </div>
-        <ul class="navbar_menu">
-            <li><a href="/bbs/list" class="navText">All Contents</a></li>
-            <li><a href="/bbs/list/front" class="navText">Front-end</a></li>
-            <li><a href="/bbs/list/back" class="navText">Back-end</a></li>
-            <li><a href="/bbs/list/spring" class="navText">Springboot</a></li>
-            <li><a href="/bbs/list/error" class="navText">Error_Report</a></li>
-        </ul>
-        <ul class="navbar_icons">
-            <li><a href="/bbs/login">로그인<i class="fa-solid fa-right-to-bracket"></i></a></li>
-            <li><a href="mypage"><i class="fa-solid fa-user"></i></a></li>
-            <li><i class="fa-solid fa-comment"></i></li>
-        </ul>
-    </nav>
+
+        <div>content...</div>
+        <main id="main">
+            <section id="section1">
+                <div>
+                <h2>“Talk is cheap. Show me the code.”</h2><br>
+                <h2>“말은 쉽지, 코드를 보여줘”</h2><br>
+                <h3>리누스 토르발스(Linus Torvalds)</h3>
+                </div>
+            </section>
+            <section id="section2">
+                <h2>All Contents</h2>
+            </section>
+            <section id="section3">
+                <h2>Front-End</h2>
+            </section>
+            <section id="section4">
+                <h2>Back-End</h2>
+            </section>
+            <section id="section5">
+                <h2>Springboot</h2>
+            </section>
+            <section id="section6">
+                <h2>Error & Bugfix</h2>
+            </section>
+            <section id="section10" class="sec9_13">
+                <h2>IntelliJ</h2>
+            </section>
+            <a href="https://github.com/Taeho0927"><section id="section11" class="sec9_13">
+                <h2>GitHub</h2>
+            </section></a>
+        </main>
+        <footer id="footer">
+            <p>이 페이지는 임시 페이지이며 상업적 용도가 아님을 알립니다</p>
+        </footer>
+    </div>
+    </body>
+    <script src="/js/brando.js"></script>
 </body>
 </html>

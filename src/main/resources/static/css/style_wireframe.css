@@ -1,0 +1,199 @@
+@charset "utf-8";
+@import url("./fonts.css");
+@import url("./progressbar.css");
+* {margin:0;padding:0;vertical-align:middle;box-sizing:border-box;}
+html, body {width:100%;height:100%;}
+html {overflow-y:scroll;scroll-behavior:smooth;}
+body {
+    font:normal 14px 'Montserrat','Nanum Gothic','Noto Sans';
+    color:#333;
+    background:#fff;
+}
+ul {list-style: none;}
+a {text-decoration:none; color:#333;}
+
+/* brando - photography style */
+#skip {z-index:2; position:fixed; top:0; left:0; width:100%;}
+#skip li a {
+    display:block;
+    width:100%;
+    background:#000;
+    line-height:0;
+    font-size:0;
+    color:#fff;
+    text-align:center;
+}
+#skip li a:focus {
+    line-height:50px;
+    font-size:20px;
+}
+
+#wrap {z-index:1;position:relative;width:100%;}
+#wrap #header {
+    z-index:3;
+    position:fixed;
+    top:0;
+    left:0;
+    width:100%;
+    height:76px;
+    background:rgba(0,0,0,0);
+    border-bottom:1px solid rgba(255,255,255,0.15);
+}
+#wrap #header .container {width:1170px; margin:0 auto; height:100%;}
+#wrap #header .container .gap {
+    width:100%;height:100%;
+    padding:0 15px 0 15px;
+    display:flex;
+    justify-content:space-between;}
+#wrap #header .container .gap .left {
+    height:100%;width:156px;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+}
+#wrap #header .container .gap .left h1 {width:100%;}
+#wrap #header .container .gap .left h1 a {display:block; width:100%;}
+#wrap #header .container .gap .left h1 a img {width:100%;}
+
+#wrap #header .container .gap .right {height:100%;}
+#wrap #header .container .gap .right #nav {display:flex;align-items:center;height:100%}
+#wrap #header .container .gap .right #nav ul {display:flex;}
+#wrap #header .container .gap .right #nav ul li {margin:0 0 0 45px;}
+#wrap #header .container .gap .right #nav ul li a {
+    color:#fff;
+    text-transform: uppercase;
+    font-weight: 500;
+    font-size: 13px;
+}
+
+#wrap #main {z-index: 1;position: relative;width: 100%;}
+#wrap #main #section1 {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;height:100vh;
+    background: url(../img/technology-g5b041c6a7_1920.jpg) no-repeat 50% 50% fixed;
+    background-size: cover;
+}
+#wrap #main #section1 h2 {
+    font-size: 50px;
+    color:#ffbf8b;
+    font-weight: 600;
+}
+
+#wrap #main #section2 {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;height:100vh;
+    background: url(../img/brando/photography-img2.jpg) no-repeat 50% 50% fixed;
+    background-size: cover;
+}
+#wrap #main #section2 h2 {
+    font-size: 50px;
+    color:rgba(0,255,151,0.5); 
+    font-weight: 600;
+}
+
+#wrap #main #section3 {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;height:100vh;
+    background: url(../img/triangles-1430105.png) no-repeat 50% 50% fixed;
+    background-size: cover;
+}
+#wrap #main #section3 h2 {
+    font-size: 200px; 
+    color:rgba(0,255,151,0.5); 
+    font-weight: 600;
+}
+
+#wrap #main #section4 {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;height:100vh;
+    background: url(../img/database-schema-1895779.png) no-repeat 50% 50% fixed;
+    background-size: cover;
+}
+#wrap #main #section4 h2 {
+    font-size: 200px; 
+    color:rgba(0,255,151,0.5); 
+    font-weight: 600;
+}
+
+#wrap #main #section5 {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;height:100vh;
+    background: url(../img/springboot.png) no-repeat 50% 50% fixed;
+    background-size: cover;
+}
+#wrap #main #section6 {display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;height:100vh;
+    background: url(../img/error.jpg) no-repeat 50% 50% fixed;
+    background-size: cover;}
+
+/* section9 ~ 13까지 공용 클래스로 동일하게 적용 */
+/* 이미지만 다르게 설정 */
+/* 1. 박스 너비 포지션 relative */
+#wrap #main .sec9_13 {width: 100%;height: 246.391px;position: relative;}
+
+/* 2. before 요소 설정 */
+#wrap #main .sec9_13::before {
+    content: ' ';
+    display: block;
+    width: 100%;
+    height: 100%;
+    background: url(../img/brando/photography-img4.jpg) no-repeat 50% 50%;
+    background-size: cover;
+    position: relative;
+    z-index: 1; /* 배경은 아래로 */
+    /* time */
+    transition: all 1s;
+    filter: brightness(90%);
+}
+
+/* 3. 마우스 오버시 포지션 필터효과 */
+#wrap #main .sec9_13:hover::before {
+    background-position: 50% 20%;
+    filter: brightness(50%);
+}
+
+#wrap #main #section9:before{
+    background-image: url(../img/webpagepreview_1280x800_IntelliJ_IDEA_2022_1.png);
+}
+#wrap #main #section10:before{
+    background-image: url(../img/webpagepreview_1280x800_IntelliJ_IDEA_2022_1.png);
+}
+#wrap #main #section11:before{
+    background-image: url(../img/githum_image.png);
+}
+/* 4. 타이틀을 위로 배치, 가운데 배치 */
+#wrap #main .sec9_13 h2 {
+    position: absolute;
+    z-index: 2;
+    color: rgba(255,255,255,1);
+    top: 0; left: 0;
+    background: transparent;
+    width: 100%; height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 100px;
+}
+
+/* 6.footer */
+#wrap #footer {
+    z-index: 2;
+    position: relative;
+    width: 100%;
+    height: 150px;
+    background: #ccc;
+}
+
+
