@@ -51,8 +51,8 @@ public class BbsController {
             KakaoAPI.kakaoLogout(access_Token);
             session.removeAttribute("access_Token");
             session.removeAttribute("userId");
+            session.removeAttribute("userName");
         }
-        System.out.println("로그아웃 완료");
         return "bbs/index";
     }
 //    @GetMapping("logout")
@@ -60,15 +60,19 @@ public class BbsController {
 
 
     @GetMapping("register")
-    public void register(){}
+    public String register(RedirectAttributes rttr, HttpServletRequest request){
+        rttr.addFlashAttribute("username", request.getSession().getAttribute("userName"));
+        return "bbs/register";
+    }
 
 
     @PostMapping("register")
-    public RedirectView register(BbsVO bbs, RedirectAttributes rttr) {
+    public RedirectView register(BbsVO bbs, RedirectAttributes rttr, HttpServletRequest request) {
         log.info("-------------------------------------");
         log.info("register called : " + bbs);
         log.info("-------------------------------------");
 
+        bbs.setWriter(request.getSession().getAttribute("userName").toString());
         service.register(bbs);
 
         // 새롭게 등록된 번호와 같이 전달하기 위해 RedirectAttribute를 이용

@@ -35,20 +35,9 @@
         <br>
         <input type="button" class="btn btn-info finish" value="등록" />
         <input type="button" class="btn btn-danger cancel" value="취소" />
-        <!-- <a href="javascript:void(0)" class="finish">등록</a> -->
-        <!-- <a href="Javascript:void(0)" class="cancel">취소</a> -->
     </div>
-
     <ul class="replies">
     </ul>
-    <!--
-    <strong>user01</strong>
-    <p>Nice Shot!!</p>
-    <div class="line"></div>
-    <strong>user02</strong>
-    <p>Nice Shot!!</p>
-    <div class="line"></div>
-    -->
 </form>
 </body>
 <!-- Scripts -->
@@ -118,47 +107,7 @@
                     }
                     replyUL.html(str);
                 });
-
         }
-
-        /*
-        replyService.add(
-            {reply:"JSTEST", replier:"tester", bno:bnoValue},
-            function(result){
-                alert("RESULT : " + result);
-            }
-        );
-        */
-
-        replyService.getList(
-            {bno:61, page:1},
-            function(list){
-                console.log(list);
-            }
-        );
-
-        /*
-        replyService.remove(30,
-            function(result){
-                alert("result : " + result);
-            }
-        );
-        */
-        /*
-        replyService.update(
-            {rno : 40, bno : bnoValue, reply : "Modified by JS"},
-            function(result){
-                alert("result : " + result)
-            }
-        );
-        */
-        /*
-        replyService.get(50,
-                function(result){
-                    console.log(result);
-                }
-        );
-        */
     })
 </script>
 </html>
