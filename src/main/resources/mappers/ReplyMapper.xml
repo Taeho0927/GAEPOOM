@@ -5,7 +5,7 @@
 <mapper namespace="com.mysite.jikpoom.mappers.ReplyMapper">
     <insert id="insert">
         insert into bbs_reply(rno,bno,reply,replier)
-        values (seq_reply.nextval, #{bno}, #{reply}, #{replier})
+        values (seq_bbs_reply.nextval, #{bno}, #{reply}, #{replier})
     </insert>
     <select id="read" resultType="ReplyVO">
         select rno, bno, reply, replier, replydate, updatedate

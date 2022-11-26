@@ -13,7 +13,7 @@
   <h4>내용</h4>
   <textarea name="content" rows="6" placeholder="Content"></textarea>
   <h4>작성자</h4>
-  <input name="writer" placeholder="Writer" type="text" />
+  <input type="text" th:placeholder="${session.userName}" th:value="${session.userName}" readonly>
   <h4>첨부파일</h4>
   <div class="uploadDiv">
     <input type="file" name="uploadFile" multiple />
@@ -23,7 +23,6 @@
   </div>
   <input type="submit" value="Register" />
 </form>
-
 </body>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
 <script>
