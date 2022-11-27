@@ -11,6 +11,11 @@ public interface BbsMapper {
     // 게시글 목록
     List<BbsVO> getList();
     List<BbsVO> getListWithPaging(Criteria criteria);
+    List<BbsVO> getFrontListWithPaging(Criteria criteria);
+    List<BbsVO> getBackListWithPaging(Criteria criteria);
+    List<BbsVO> getSpringListWithPaging(Criteria criteria);
+    List<BbsVO> getEnBListWithPaging(Criteria criteria);
+
     // 게시글 등록
     void insert(BbsVO bbs);
 

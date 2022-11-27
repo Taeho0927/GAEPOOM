@@ -29,7 +29,7 @@
 
     <div class="register-form" style="display:none;">
         <h4>작성자</h4>
-        <input type="text" name="replier" placeholder="Replier" />
+        <<input type="text" name="replier" th:placeholder="${session.userName}" th:value="${session.userName}" readonly>
         <h4>댓글</h4>
         <textarea rows="6" name="reply" placeholder="Reply"></textarea>
         <br>

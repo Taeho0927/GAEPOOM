@@ -37,6 +37,23 @@ public class BbsServiceImpl implements BbsService{
         return bbsDAO.getList(criteria);
     }
     @Override
+    public List<BbsVO> getFrontList(Criteria criteria) {
+        return bbsDAO.getFrontList(criteria);
+    }
+    @Override
+    public List<BbsVO> getBackList(Criteria criteria) {
+        return bbsDAO.getBackList(criteria);
+    }
+    @Override
+    public List<BbsVO> getSpringList(Criteria criteria) {
+        return bbsDAO.getSpringList(criteria);
+    }
+    @Override
+    public List<BbsVO> getEnBList(Criteria criteria) {
+        return bbsDAO.getEnBList(criteria);
+    }
+
+    @Override
     public int getTotal(Criteria criteria){
         return bbsDAO.getTotal(criteria);
     }

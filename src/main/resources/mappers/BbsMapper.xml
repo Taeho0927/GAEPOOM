@@ -31,10 +31,10 @@
     </sql>
     <select id="getListWithPaging" resultType="bbs">
         <![CDATA[
-        select bno, title, content, writer, regdate, updatedate
+        select bno, title, content, writer, regdate, updatedate,category
         from(
             select /*+ index_desc(bbs PK_BBS) */
-            rownum rn, bno, title, content, writer, regdate, updatedate
+            rownum rn, bno, title, content, writer, regdate, updatedate, category
             from bbs
             where
         ]]>
@@ -42,11 +42,78 @@
         <![CDATA[
             rownum <= #{pageNum} * #{amount}
             )
-        where rn > (#{pageNum}-1) * #{amount}
+        where category like '%etc%'
+        and rn > (#{pageNum}-1) * #{amount}
         ]]>
     </select>
-
-
+    <select id="getFrontListWithPaging" resultType="bbs">
+        <![CDATA[
+        select bno, title, content, writer, regdate, updatedate,category
+        from(
+            select /*+ index_desc(bbs PK_BBS) */
+            rownum rn, bno, title, content, writer, regdate, updatedate, category
+            from bbs
+            where
+        ]]>
+        <include refid="criteria"></include>
+        <![CDATA[
+            rownum <= #{pageNum} * #{amount}
+            )
+        where category like '%front%'
+        and rn > (#{pageNum}-1) * #{amount}
+        ]]>
+    </select>
+    <select id="getBackListWithPaging" resultType="bbs">
+        <![CDATA[
+        select bno, title, content, writer, regdate, updatedate,category
+        from(
+            select /*+ index_desc(bbs PK_BBS) */
+            rownum rn, bno, title, content, writer, regdate, updatedate, category
+            from bbs
+            where
+        ]]>
+        <include refid="criteria"></include>
+        <![CDATA[
+            rownum <= #{pageNum} * #{amount}
+            )
+        where category like '%back%'
+        and rn > (#{pageNum}-1) * #{amount}
+        ]]>
+    </select>
+    <select id="getSpringListWithPaging" resultType="bbs">
+        <![CDATA[
+        select bno, title, content, writer, regdate, updatedate,category
+        from(
+            select /*+ index_desc(bbs PK_BBS) */
+            rownum rn, bno, title, content, writer, regdate, updatedate, category
+            from bbs
+            where
+        ]]>
+        <include refid="criteria"></include>
+        <![CDATA[
+            rownum <= #{pageNum} * #{amount}
+            )
+        where category like '%spring%'
+        and rn > (#{pageNum}-1) * #{amount}
+        ]]>
+    </select>
+    <select id="getEnBListWithPaging" resultType="bbs">
+        <![CDATA[
+        select bno, title, content, writer, regdate, updatedate,category
+        from(
+            select /*+ index_desc(bbs PK_BBS) */
+            rownum rn, bno, title, content, writer, regdate, updatedate, category
+            from bbs
+            where
+        ]]>
+        <include refid="criteria"></include>
+        <![CDATA[
+            rownum <= #{pageNum} * #{amount}
+            )
+        where category like '%enb%'
+        and rn > (#{pageNum}-1) * #{amount}
+        ]]>
+    </select>
     <insert id="insert">
         insert into bbs(bno, title, content, writer)
         values (seq_board.nextval, #{title}, #{content}, #{writer})

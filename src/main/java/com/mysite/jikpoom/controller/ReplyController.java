@@ -5,10 +5,12 @@ import com.mysite.jikpoom.beans.vo.ReplyVO;
 import com.mysite.jikpoom.services.ReplyService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.text.StringEscapeUtils;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletRequest;
 import java.io.UnsupportedEncodingException;
 import java.util.List;
 
@@ -31,8 +33,10 @@ public class ReplyController {
     @PostMapping(value = "/new", consumes = "application/json", produces = "text/plain; charset=utf-8")
     // ResponseEntity : 서버의 상태코드, 응답 메시지 등을 담을 수 있는 타입
     // @RequestBody 를 적용하여 JSON 데이터를 ReplyVO 타입으로 변환하도록 지정
-    public ResponseEntity<String> create(@RequestBody ReplyVO reply) throws UnsupportedEncodingException{
+    public ResponseEntity<String> create(@RequestBody ReplyVO reply, HttpServletRequest req) throws UnsupportedEncodingException{
         int insertCnt = 0;
+        reply.setReplier(req.getSession().getAttribute("userName").toString());
+        reply.setReply(StringEscapeUtils.escapeHtml4(reply.getReply()));
         log.info("ReplyVO : "+ reply);
         insertCnt = replyService.register(reply);
 

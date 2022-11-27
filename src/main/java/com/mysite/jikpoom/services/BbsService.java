@@ -12,6 +12,10 @@ public interface BbsService {
     public boolean remove(Long bno);
     public List<BbsVO> getList();
     public List<BbsVO> getList(Criteria criteria);
+    public List<BbsVO> getFrontList(Criteria criteria);
+    public List<BbsVO> getBackList(Criteria criteria);
+    public List<BbsVO> getSpringList(Criteria criteria);
+    public List<BbsVO> getEnBList(Criteria criteria);
     public int getTotal(Criteria criteria);
 
 }

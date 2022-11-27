@@ -6,9 +6,12 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import com.mysite.jikpoom.services.KakaoAPI;
 
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.util.HashMap;
+import java.util.UUID;
 
 @Controller
 @Slf4j
@@ -17,7 +20,8 @@ public class KakaoLoginController {
     @Autowired
     private KakaoAPI kakao;
     @RequestMapping(value = "/kakao")
-    public String login(@RequestParam("code")String code, HttpServletRequest req){
+    @PostMapping
+    public String login(@RequestParam("code")String code, HttpServletRequest req, HttpServletResponse res){
         String access_Token = kakao.getKaKaoAccessToken(code);
         HashMap<String, Object> userInfo = kakao.getUserInfo(access_Token);
         System.out.println("login Controller :"+userInfo);
@@ -29,6 +33,10 @@ public class KakaoLoginController {
             session.setAttribute("userName",userInfo.get("nickname"));
             session.setAttribute("userId", userInfo.get("email"));
             session.setAttribute("access_Token", access_Token);
+
+            Cookie c = new Cookie("userName", (String) userInfo.get("nickname"));
+            res.addCookie(c);
+
             System.out.println(session.getAttribute("userName")+"님 반갑습니다");
         }
 

@@ -35,6 +35,18 @@ public class BbsDAO {
     public List<BbsVO> getList(Criteria criteria){
         return  mapper.getListWithPaging(criteria);
     }
+    public List<BbsVO> getFrontList(Criteria criteria){
+        return mapper.getFrontListWithPaging(criteria);
+    }
+    public List<BbsVO> getBackList(Criteria criteria){
+        return mapper.getBackListWithPaging(criteria);
+    }
+    public List<BbsVO> getSpringList(Criteria criteria) {
+        return mapper.getSpringListWithPaging(criteria);
+    }
+    public List<BbsVO> getEnBList(Criteria criteria) {
+        return mapper.getEnBListWithPaging(criteria);
+    }
     public int getTotal(Criteria criteria) {
         return mapper.getTotal(criteria);
     }

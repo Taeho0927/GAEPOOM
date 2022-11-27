@@ -14,6 +14,7 @@ public class BbsVO {
     private String writer;
     private String regdate;
     private String updatedate;
+    private String category;
     // input 태그의 name
     // attachList[i].fileName
     // attachList[i].uuid

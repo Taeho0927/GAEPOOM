@@ -77,6 +77,12 @@
 			<artifactId>thumbnailator</artifactId>
 			<version>0.4.1</version>
 		</dependency>
+		<!--	apache common	-->
+		<dependency>
+			<groupId>org.apache.commons</groupId>
+			<artifactId>commons-text</artifactId>
+			<version>1.4</version>
+		</dependency>
 
 	</dependencies>
 

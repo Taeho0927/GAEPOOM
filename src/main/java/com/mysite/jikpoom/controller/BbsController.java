@@ -29,11 +29,37 @@ public class BbsController {
 
     @GetMapping("list")
     public void list(Criteria cri, Model model) {
-        log.info("-------------------------------------");
-        log.info("list called");
-        log.info("-------------------------------------");
+        log.info("1번 배너 이동됨");
         model.addAttribute("list", service.getList(cri));
         model.addAttribute("pageMaker", new PageDTO(cri, service.getTotal(cri)));
+    }
+    @GetMapping("front")
+    public String list2(Criteria cri, Model model) {
+        log.info("2번 배너 이동됨");
+        model.addAttribute("list", service.getFrontList(cri));
+        model.addAttribute("pageMaker", new PageDTO(cri, service.getTotal(cri)));
+        return "/bbs/list";
+    }
+    @GetMapping("back")
+    public String list3(Criteria cri, Model model) {
+        log.info("3번 배너 이동됨");
+        model.addAttribute("list", service.getBackList(cri));
+        model.addAttribute("pageMaker", new PageDTO(cri, service.getTotal(cri)));
+        return "/bbs/list";
+    }
+    @GetMapping("spring")
+    public String list4(Criteria cri, Model model) {
+        log.info("4번 배너 이동됨");
+        model.addAttribute("list", service.getSpringList(cri));
+        model.addAttribute("pageMaker", new PageDTO(cri, service.getTotal(cri)));
+        return "/bbs/list";
+    }
+    @GetMapping("e&b")
+    public String list5(Criteria cri, Model model) {
+        log.info("5번 배너 이동됨");
+        model.addAttribute("list", service.getEnBList(cri));
+        model.addAttribute("pageMaker", new PageDTO(cri, service.getTotal(cri)));
+        return "/bbs/list";
     }
     @GetMapping("login")
     public String doLogin(){
@@ -52,6 +78,7 @@ public class BbsController {
             session.removeAttribute("access_Token");
             session.removeAttribute("userId");
             session.removeAttribute("userName");
+            System.out.println("로그아웃성공");
         }
         return "bbs/index";
     }

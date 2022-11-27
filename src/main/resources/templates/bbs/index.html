@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <title>GAEPOOM</title>
@@ -22,13 +22,13 @@
                         <nav id="nav">
                             <ul>
                                 <li><a href="/bbs/list" class="main-btn">All Contents</a></li>
-                                <li><a href="/bbs/list/front" class="main-btn">Front-end</a></li>
-                                <li><a href="/bbs/list/back" class="main-btn">Back-end</a></li>
-                                <li><a href="/bbs/list/spring" class="main-btn">Springboot</a></li>
-                                <li><a href="/bbs/list/e&b" class="main-btn">Error & Bugfix</a></li>
-                                <li><a href="/bbs/login">로그인<i class="fa-solid fa-right-to-bracket"></i></a></li>
-                                <li><a href="/bbs/logout">로그아웃</a></li>
-                                <li><a href="mypage"><i class="fa-solid fa-user"></i></a></li>
+                                <li><a href="/bbs/front" class="main-btn">Front-end</a></li>
+                                <li><a href="/bbs/back" class="main-btn">Back-end</a></li>
+                                <li><a href="/bbs/spring" class="main-btn">Springboot</a></li>
+                                <li><a href="/bbs/e&b" class="main-btn">Error & Bugfix</a></li>
+                                <li id="login_btn"><a href="/bbs/login">로그인<i class="fa-solid fa-right-to-bracket"></i></a></li>
+                                <li id="logout_btn"><a href="/bbs/logout">로그아웃</a></li>
+                                <li id="welcome_ph"><a href="mypage" th:text="${session.userName}"></a>님</li>
                                 <li><i class="fa-solid fa-comment"></i></li>
                             </ul>
                         </nav>
@@ -41,8 +41,6 @@
                 <div class="progress-bar" id="myBar"></div>
             </div>
         </div>
-
-        <div>content...</div>
         <main id="main">
             <section id="section1">
                 <div>
@@ -75,9 +73,15 @@
         </main>
         <footer id="footer">
             <p>이 페이지는 임시 페이지이며 상업적 용도가 아님을 알립니다</p>
+            <h2 th:text="${session.userName}"></h2>
         </footer>
     </div>
     </body>
     <script src="/js/brando.js"></script>
+    <script src="/js/checkSession.js"></script>
+<script>
+    fusername = "[[${session.userName}]]";
+    $(document).ready(init)
+</script>
 </body>
 </html>

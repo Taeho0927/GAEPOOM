@@ -3,45 +3,61 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
-    <title>List</title>
-    <script src="https://kit.fontawesome.com/c3f903aa69.js" crossorigin="anonymous"></script>
-    <link rel="stylesheet" href="/css/navbar.css?after" type="text/css">
+    <title>GAEPOOM</title>
+    <link rel="stylesheet" href="/css/header.css?after" type="text/css">
+    <link rel="stylesheet" href="/css/progressbar.css?after" type="text/css">
     <link rel="stylesheet" href="/css/list.css?after" type="text/css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
+    <script src="/js/progressbar.js"></script>
+    <script src="/js/checkSession.js"></script>
 </head>
 <body>
-<nav class="navbar">
-    <div class="navbar_logo">
-        <i class="fa-solid fa-person-walking-luggage"></i>
-        <a href="/bbs/index" class="navText">JIKPOOM</a>
-    </div>
-    <ul class="navbar_menu">
-        <li><a href="/bbs/list" class="navText">All Contents</a></li>
-        <li><a href="/bbs/list/front" class="navText">Front-end</a></li>
-        <li><a href="/bbs/list/back" class="navText">Back-end</a></li>
-        <li><a href="/bbs/list/spring" class="navText">Springboot</a></li>
-        <li><a href="/bbs/list/error" class="navText">Error_Report</a></li>
-    </ul>
-    <ul class="navbar_icons">
-        <li><a href="/bbs/login">로그인<i class="fa-solid fa-right-to-bracket"></i></a></li>
-        <li><a href="mypage"><i class="fa-solid fa-user"></i></a></li>
-        <li><i class="fa-solid fa-comment"></i></li>
-    </ul>
-</nav>
-<div class="row justify-content-center">
-    <div>
-        <h3><a href="/bbs/register">글 등록</a></h3>
+<div id="wrap">
+    <header id="header" style="background-color:#a3c6c4">
         <div class="container">
+            <div class="gap">
+                <div class="left">
+                    <h1><a href="/bbs/index" title="home">GAEPOOM</a></h1>
+                </div>
+                <div class="right">
+                    <nav id="nav">
+                        <ul>
+                            <li><a href="list" class="main-btn">All Contents</a></li>
+                            <li><a href="front" class="main-btn">Front-end</a></li>
+                            <li><a href="back" class="main-btn">Back-end</a></li>
+                            <li><a href="spring" class="main-btn">Springboot</a></li>
+                            <li><a href="e&b" class="main-btn">Error & Bugfix</a></li>
+                            <li id="login_btn"><a href="/bbs/login">로그인<i class="fa-solid fa-right-to-bracket"></i></a></li>
+                            <li id="logout_btn"><a href="/bbs/logout">로그아웃</a></li>
+                            <li id="welcome_ph"><a href="mypage" th:text="${session.userName}"></a>님</li>
+                            <li><i class="fa-solid fa-comment"></i></li>
+                        </ul>
+                    </nav>
+                </div>
+            </div>
+        </div>
+    </header>
+    <div class="scroll-bar-progress">
+        <div class="progress-container">
+            <div class="progress-bar" id="myBar"></div>
+        </div>
+    </div>
+<div class="wrap-content">
+    <div>
+        <div class="container-content">
             <th:block th:each="bbs:${list}">
-            <ol>
+            <ol class="each-content" style="list-style: none">
                 <li th:object="${bbs}">
                     <span th:text="*{bno}" class="td_bno"></span>
-                    <p><a th:text="*{title}" th:href="@{/bbs/get(bno=*{bno})}"></a></p>
+                    <p><a class="title_name" th:text="*{title}" th:href="@{/bbs/get(bno=*{bno})}"></a></p>
                     <p class="regdate" th:text="*{regdate}"></p>
                     <p th:text="*{writer}" class="td_writer writer"></p>
                 </li>
             </ol>
+            <br>
             </th:block>
         </div>
+        <h3><a href="/bbs/register">글 등록</a></h3>
         <form method="get" action="/bbs/list" id="searchForm" th:object="${pageMaker}">
             <div id="searchWrap" th:object="${criteria}">
                 <select name="type">
@@ -106,6 +122,10 @@
         }
         searchForm.submit();
     });
-</script>
+    </script>
+    <script>
+        fusername = "[[${session.userName}]]";
+        $(document).ready(init)
+    </script>
 </body>
 </html>
