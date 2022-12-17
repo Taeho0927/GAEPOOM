@@ -1,4 +1,4 @@
-package com.mysite.jikpoom.mybatis;
+package com.mysite.gaepoom.mybatis;
 
 
 import com.zaxxer.hikari.HikariConfig;
@@ -17,7 +17,7 @@ import java.io.IOException;
 
 @Configuration
 @RequiredArgsConstructor
-@MapperScan("com.mysite.jikpoom.mappers")
+@MapperScan("com.mysite.gaepoom.mappers")
 public class MybatisConfiguration {
     // 커넥션 풀 및 MyBatis 에 필요한 요소를 메모리에 할당 및 관리, xml 과 java 연동에 필요한 경로를 관리함.
     private final ApplicationContext applicationContext;

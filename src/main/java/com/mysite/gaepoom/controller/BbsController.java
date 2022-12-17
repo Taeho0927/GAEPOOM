@@ -1,9 +1,9 @@
-package com.mysite.jikpoom.controller;
+package com.mysite.gaepoom.controller;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
-import com.mysite.jikpoom.services.KakaoAPI;
+import com.mysite.gaepoom.services.KakaoAPI;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -11,10 +11,10 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.springframework.web.servlet.view.RedirectView;
 
-import com.mysite.jikpoom.beans.vo.BbsVO;
-import com.mysite.jikpoom.beans.vo.Criteria;
-import com.mysite.jikpoom.beans.vo.PageDTO;
-import com.mysite.jikpoom.services.BbsService;
+import com.mysite.gaepoom.beans.vo.BbsVO;
+import com.mysite.gaepoom.beans.vo.Criteria;
+import com.mysite.gaepoom.beans.vo.PageDTO;
+import com.mysite.gaepoom.services.BbsService;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -29,34 +29,29 @@ public class BbsController {
 
     @GetMapping("list")
     public void list(Criteria cri, Model model) {
-        log.info("1번 배너 이동됨");
         model.addAttribute("list", service.getList(cri));
         model.addAttribute("pageMaker", new PageDTO(cri, service.getTotal(cri)));
     }
     @GetMapping("front")
     public String list2(Criteria cri, Model model) {
-        log.info("2번 배너 이동됨");
         model.addAttribute("list", service.getFrontList(cri));
         model.addAttribute("pageMaker", new PageDTO(cri, service.getTotal(cri)));
         return "/bbs/list";
     }
     @GetMapping("back")
     public String list3(Criteria cri, Model model) {
-        log.info("3번 배너 이동됨");
         model.addAttribute("list", service.getBackList(cri));
         model.addAttribute("pageMaker", new PageDTO(cri, service.getTotal(cri)));
         return "/bbs/list";
     }
     @GetMapping("spring")
     public String list4(Criteria cri, Model model) {
-        log.info("4번 배너 이동됨");
         model.addAttribute("list", service.getSpringList(cri));
         model.addAttribute("pageMaker", new PageDTO(cri, service.getTotal(cri)));
         return "/bbs/list";
     }
     @GetMapping("e&b")
     public String list5(Criteria cri, Model model) {
-        log.info("5번 배너 이동됨");
         model.addAttribute("list", service.getEnBList(cri));
         model.addAttribute("pageMaker", new PageDTO(cri, service.getTotal(cri)));
         return "/bbs/list";
@@ -95,9 +90,6 @@ public class BbsController {
 
     @PostMapping("register")
     public RedirectView register(BbsVO bbs, RedirectAttributes rttr, HttpServletRequest request) {
-        log.info("-------------------------------------");
-        log.info("register called : " + bbs);
-        log.info("-------------------------------------");
 
         bbs.setWriter(request.getSession().getAttribute("userName").toString());
         service.register(bbs);
@@ -114,17 +106,11 @@ public class BbsController {
         String reqURI = request.getRequestURI();
         String reqType = reqURI.substring(reqURI.indexOf(request.getContextPath()) + 7);
 
-        log.info("-------------------------------------");
-        log.info("get called : " + bno);
-        log.info("-------------------------------------");
-        log.info(reqType);
-
         model.addAttribute("bbs", service.get(bno));
     }
 
     @PostMapping("modify")
     public RedirectView modify(BbsVO bbs, RedirectAttributes rttr) {
-        log.info("modify : " + bbs);
 
         if(service.modify(bbs)) {
             // addAttribute()는 GET방식으로 QueryString에 전달
@@ -140,8 +126,6 @@ public class BbsController {
     // 삭제 실패 시 result에 "fail"를 flash에 담아서 전달
     @PostMapping("remove")
     public RedirectView remove(@RequestParam("bno") Long bno, RedirectAttributes rttr) {
-        log.info("remove : " + bno);
-
         if(service.remove(bno)) {
             rttr.addFlashAttribute("result", "success");
         }

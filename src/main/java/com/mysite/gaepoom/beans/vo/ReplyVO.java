@@ -1,4 +1,4 @@
-package com.mysite.jikpoom.beans.vo;
+package com.mysite.gaepoom.beans.vo;
 
 import lombok.Data;
 

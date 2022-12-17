@@ -1,7 +1,7 @@
-package com.mysite.jikpoom.services;
+package com.mysite.gaepoom.services;
 
-import com.mysite.jikpoom.beans.vo.Criteria;
-import com.mysite.jikpoom.beans.vo.ReplyVO;
+import com.mysite.gaepoom.beans.vo.Criteria;
+import com.mysite.gaepoom.beans.vo.ReplyVO;
 import org.springframework.stereotype.Service;
 
 import java.util.List;

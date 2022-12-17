@@ -1,4 +1,4 @@
-package com.mysite.jikpoom.controller;
+package com.mysite.gaepoom.controller;
 
 import org.springframework.boot.web.servlet.error.ErrorController;
 import org.springframework.http.HttpStatus;

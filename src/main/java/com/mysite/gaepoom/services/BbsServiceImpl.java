@@ -1,8 +1,8 @@
-package com.mysite.jikpoom.services;
+package com.mysite.gaepoom.services;
 
-import com.mysite.jikpoom.beans.dao.BbsDAO;
-import com.mysite.jikpoom.beans.vo.BbsVO;
-import com.mysite.jikpoom.beans.vo.Criteria;
+import com.mysite.gaepoom.beans.dao.BbsDAO;
+import com.mysite.gaepoom.beans.vo.BbsVO;
+import com.mysite.gaepoom.beans.vo.Criteria;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

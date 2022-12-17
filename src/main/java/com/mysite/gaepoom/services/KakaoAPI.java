@@ -1,9 +1,8 @@
-package com.mysite.jikpoom.services;
+package com.mysite.gaepoom.services;
 
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import com.google.gson.JsonElement;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.io.*;

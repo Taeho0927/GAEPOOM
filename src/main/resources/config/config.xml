@@ -3,7 +3,7 @@
         "http://mybatis.org/dtd/mybatis-3-config.dtd">
 <configuration>
     <typeAliases>
-        <typeAlias type="com.mysite.jikpoom.beans.vo.BbsVO" alias="bbs" />
-        <typeAlias type="com.mysite.jikpoom.beans.vo.ReplyVO" alias="ReplyVO" />
+        <typeAlias type="com.mysite.gaepoom.beans.vo.BbsVO" alias="bbs" />
+        <typeAlias type="com.mysite.gaepoom.beans.vo.ReplyVO" alias="ReplyVO" />
     </typeAliases>
 </configuration>

@@ -1,4 +1,4 @@
-package com.mysite.jikpoom.config;
+package com.mysite.gaepoom.config;
 
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;

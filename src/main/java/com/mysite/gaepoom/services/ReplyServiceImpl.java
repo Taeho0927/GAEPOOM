@@ -1,8 +1,8 @@
-package com.mysite.jikpoom.services;
+package com.mysite.gaepoom.services;
 
-import com.mysite.jikpoom.beans.dao.ReplyDAO;
-import com.mysite.jikpoom.beans.vo.Criteria;
-import com.mysite.jikpoom.beans.vo.ReplyVO;
+import com.mysite.gaepoom.beans.dao.ReplyDAO;
+import com.mysite.gaepoom.beans.vo.Criteria;
+import com.mysite.gaepoom.beans.vo.ReplyVO;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;

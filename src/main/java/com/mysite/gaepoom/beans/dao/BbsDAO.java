@@ -1,8 +1,8 @@
-package com.mysite.jikpoom.beans.dao;
+package com.mysite.gaepoom.beans.dao;
 
-import com.mysite.jikpoom.beans.vo.BbsVO;
-import com.mysite.jikpoom.beans.vo.Criteria;
-import com.mysite.jikpoom.mappers.BbsMapper;
+import com.mysite.gaepoom.beans.vo.BbsVO;
+import com.mysite.gaepoom.beans.vo.Criteria;
+import com.mysite.gaepoom.mappers.BbsMapper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;

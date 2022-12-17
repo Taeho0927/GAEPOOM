@@ -1,7 +1,7 @@
-package com.mysite.jikpoom.mappers;
+package com.mysite.gaepoom.mappers;
 
-import com.mysite.jikpoom.beans.vo.Criteria;
-import com.mysite.jikpoom.beans.vo.ReplyVO;
+import com.mysite.gaepoom.beans.vo.Criteria;
+import com.mysite.gaepoom.beans.vo.ReplyVO;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 

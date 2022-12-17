@@ -2,7 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <!--suppress ALL -->
-<mapper namespace="com.mysite.jikpoom.mappers.ReplyMapper">
+<mapper namespace="com.mysite.gaepoom.mappers.ReplyMapper">
     <insert id="insert">
         insert into bbs_reply(rno,bno,reply,replier)
         values (seq_bbs_reply.nextval, #{bno}, #{reply}, #{replier})

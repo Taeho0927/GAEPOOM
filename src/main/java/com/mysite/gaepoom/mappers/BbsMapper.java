@@ -1,7 +1,7 @@
-package com.mysite.jikpoom.mappers;
+package com.mysite.gaepoom.mappers;
 
-import com.mysite.jikpoom.beans.vo.BbsVO;
-import com.mysite.jikpoom.beans.vo.Criteria;
+import com.mysite.gaepoom.beans.vo.BbsVO;
+import com.mysite.gaepoom.beans.vo.Criteria;
 import org.apache.ibatis.annotations.Mapper;
 
 import java.util.List;

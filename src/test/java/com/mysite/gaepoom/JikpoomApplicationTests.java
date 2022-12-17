@@ -1,4 +1,4 @@
-package com.mysite.jikpoom;
+package com.mysite.gaepoom;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
