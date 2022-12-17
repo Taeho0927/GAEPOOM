@@ -1,17 +1,17 @@
 # GAEPOOM
 ***
 > **개발의 품격 - 개품**
-개발정보를 공유하는 게시판 유형의 정보 블로그 - 1인 프로젝트
+개발정보를 공유하는 게시판 유형의 정보 블로그 - 1인 프로젝트<br>
 > **작업환경**
 JDK : 11.0.16<br>
 IDE : IntelliJ IDEA<br>
-DB tool : DataGrip<br>
+DB tool : DataGrip
     
 + 기간 : 1달
 
 ***
 ### 🪓  사용된 기술
-> <img src=https://img.shields.io/badge/SpringBoot-6DB33F?style=flat&logo=springboot&logoColor=white> 
+> <img src=https://img.shields.io/badge/SpringBoot-6DB33F?style=flat&logo=springboot&logoColor=white> <br>
 +  **Additional Dependancy**
    + lombok
    + Spring Boot DevTools
