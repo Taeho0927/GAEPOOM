@@ -3,7 +3,7 @@
 > **개발의 품격 - 개품**
 개발정보를 공유하는 게시판 유형의 정보 블로그 - 1인 프로젝트<br>
 
-> **작업환경**
+> **작업환경**<br>
 JDK : 11.0.16<br>
 IDE : IntelliJ IDEA<br>
 DB tool : DataGrip
