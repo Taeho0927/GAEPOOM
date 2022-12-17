@@ -12,7 +12,7 @@ DB tool : DataGrip
 
 ***
 ### 🪓  사용된 기술
-> <img src=https://img.shields.io/badge/SpringBoot-6DB33F?style=flat&logo=springboot&logoColor=white> <br>
+> <img src=https://img.shields.io/badge/SpringBoot-6DB33F?style=for-the-badge&logo=springboot&logoColor=white> <br>
 +  **Additional Dependancy**
    + lombok
    + Spring Boot DevTools
