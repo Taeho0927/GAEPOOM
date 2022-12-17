@@ -27,7 +27,7 @@ DB tool : DataGrip
 
 > <img src="https://img.shields.io/badge/JavaScript-F7DF1E?style=for-the-badge&logo=javascript&logoColor=white">
 +  **Added**
-   + Naver SmartEditor
+   + Naver SmartEditor  <img src="https://img.shields.io/badge/naver-03C75A?style=for-the-badge&logo=naver&logoColor=white">
    + Ajax
-   + jQuery
+   + jQuery   <img src="https://img.shields.io/badge/jQuery-0769AD?style=for-the-badge&logo=jquery&logoColor=white">
 > <img src="https://img.shields.io/badge/KakaoLogin-FFCD00?style=for-the-badge&logo=kakao&logoColor=white">
