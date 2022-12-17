@@ -18,9 +18,9 @@ DB tool : DataGrip
    + Spring Boot DevTools
    + Spring Web
    + Spring Web Service
-   + Thymeleaf
+   + Thymeleaf  <img src="https://img.shields.io/badge/Thymeleaf-005F0F?style=for-the-badge&logo=thymeleaf&logoColor=white">
    + JDBC
-   + Oracle Driver
+   + Oracle Driver  <img src="https://img.shields.io/badge/Oracle-F80000?style=for-the-badge&logo=oracle&logoColor=white">
    + Mybatis
    + gson
 > <img src="https://img.shields.io/badge/HTML5-E34F26?style=for-the-badge&logo=html5&logoColor=white"> <img src="https://img.shields.io/badge/CSS3-1572B6?style=for-the-badge&logo=css3&logoColor=white">
