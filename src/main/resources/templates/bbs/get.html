@@ -9,27 +9,63 @@
         }
     </style>
     <script src="/js/reply.js"></script>
-    <title>Get</title>
+    <script src="/js/content.js"></script>
+    <link rel="stylesheet" href="/css/regist.css">
+    <link rel="stylesheet" href="/css/progressbar.css">
+    <link rel="stylesheet" href="/css/header.css">
+    <script src="/js/progressbar.js"></script>
+    <script src="/js/checkSession.js"></script>
+    <title>GAEPOOM</title>
 </head>
 <body>
-<h1>게시글 상세보기</h1>
-<form method="post" action="/bbs/remove" th:object="${bbs}" >
+<div id="wrap">
+<header id="header" style="background-color:#a3c6c4">
+    <div class="container">
+        <div class="gap">
+            <div class="left">
+                <h1><a href="/bbs/index" title="home">GAEPOOM</a></h1>
+            </div>
+            <div class="right">
+                <nav id="nav">
+                    <ul>
+                        <li><a href="list" class="main-btn">자유게시판</a></li>
+                        <li><a href="front" class="main-btn">Front-end</a></li>
+                        <li><a href="back" class="main-btn">Back-end</a></li>
+                        <li><a href="spring" class="main-btn">Springboot</a></li>
+                        <li><a href="e&b" class="main-btn">Error & Bugfix</a></li>
+                        <li id="login_btn"><a href="/bbs/login">로그인<i class="fa-solid fa-right-to-bracket"></i></a></li>
+                        <li id="logout_btn"><a href="/bbs/logout">로그아웃</a></li>
+                        <li id="welcome_ph"><a href="mypage" th:text="${session.userName}"></a>님</li>
+                        <li><i class="fa-solid fa-comment"></i></li>
+                    </ul>
+                </nav>
+            </div>
+        </div>
+    </div>
+</header>
+</div>
+    <div class="scroll-bar-progress">
+        <div class="progress-container">
+            <div class="progress-bar" id="myBar"></div>
+        </div>
+    </div>
+<form method="post" action="/bbs/remove" th:object="${bbs}" id="deleteForm">
     <h4>번호</h4><input name="bno" type="text" th:field="*{bno}" readonly />
     <h4>제목</h4><input name="title" type="text" th:field="*{title}" readonly />
     <h4>내용</h4>
-    <textarea name="content" rows="6" th:text="*{content}" readonly></textarea>
+    <div id="my_content" th:text="*{content}"></div>
     <h4>작성자</h4>
     <input name="writer" type="text" th:field="*{writer}" readonly />
     <br>
-    <input type="button" value="수정" onclick="goUpdate()" />
-    <input type="submit" value="삭제" />
+    <input type="button" value="수정" onclick="checkUpdate()" />
+    <input type="button" value="삭제" onclick="checkDelete()" />
     <br><br>
     <div class="fa fa-camera-retro fa-lg"><strong>댓글</strong></div><br>
     <a href="javascript:void(0)" class="register">댓글 등록</a>
 
     <div class="register-form" style="display:none;">
         <h4>작성자</h4>
-        <<input type="text" name="replier" th:placeholder="${session.userName}" th:value="${session.userName}" readonly>
+        <input type="text" name="replier" th:placeholder="${session.userName}" th:value="${session.userName}" readonly>
         <h4>댓글</h4>
         <textarea rows="6" name="reply" placeholder="Reply"></textarea>
         <br>
@@ -42,19 +78,36 @@
 </body>
 <!-- Scripts -->
 <script th:inline="javascript">
-    /*<![CDATA[*/
+
     function goUpdate(){
         let bno = /*[[${bbs.getBno()}]]*/
             location.href='/bbs/modify?bno=' + bno;
+        }
+    function checkDelete(){
+        let UserName =fusername;
+        let CheckName = $('input[name=writer]').val();
+        if(UserName === CheckName){
+            $('#deleteForm').submit();
+        }else {
+            alert("다른 사람의 게시물은 삭제할 수 없습니다.")
+            return false;
+        }
     }
-    /*]]>*/
+    function checkUpdate(){
+        let UserName =fusername;
+        let CheckName = $('input[name=writer]').val();
+        if(UserName === CheckName){
+            goUpdate();
+        }else {
+            alert("다른 사람의 게시물은 수정할 수 없습니다.")
+            return false;
+        }
+    }
 </script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
 <script>
-
+    window.onload=setInnerHTML();
     $(document).ready(function(){
-        console.log("JS TEST");
-
         let bnoValue = [[${bbs.getBno()}]]
         let replyUL = $(".replies");
         let pageNum = 1;
@@ -73,7 +126,6 @@
         $(".finish").on("click", function(){
             let replier = $("input[name='replier']").val();
             let reply = $("textarea[name='reply']").val();
-            console.log(replier + ":" + reply);
             if(replier == "" || reply == ""){ return; }
 
             replyService.add({bno:bnoValue, reply:reply, replier:replier},
@@ -97,9 +149,7 @@
                         replyUL.html("");
                         return;
                     }
-                    console.log("There are some replies");
                     for(let i=0, len=list.length; i<len; i++){
-                        console.log(list[i].replier);
                         str += "<li style='display:block' data-rno='" +list[i].rno+  "'>";
                         str += "<strong>" + list[i].replier + "</strong>" + "(" + list[i].replyDate + ")";
                         str += "<p>" + list[i].reply + "</p>";
@@ -109,5 +159,9 @@
                 });
         }
     })
+</script>
+<script>
+    fusername = "[[${session.userName}]]";
+    $(document).ready(init)
 </script>
 </html>

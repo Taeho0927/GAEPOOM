@@ -21,6 +21,6 @@ public class BbsVO {
     // attachList[i].uploadPath
     // attachList[i].fileType
     // 방식으로 submit 하면 자동으로 List 에 add
-    //private List<AttachFileVO> attachList;
+    //private List<SmarteditorVO> attachList;
     public BbsVO(){}
 }

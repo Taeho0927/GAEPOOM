@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+  <title>Modify</title>
+  <script src="//code.jquery.com/jquery-1.11.0.min.js"></script>
+  <script src="/js/smarteditor2-2.8.2.3/js/HuskyEZCreator.js" charset="utf-8"></script>
+</head>
+<body>
+<h1>게시글 수정</h1>
+<form method="post" action="/bbs/modify" th:object="${bbs}" id="modifyForm">
+  <h4>번호</h4><input name="bno" type="text" th:field="*{bno}" readonly />
+  <h4>제목</h4><input name="title" type="text" th:field="*{title}"/>
+  <h4>내용</h4>
+  <textarea name="content" rows="6" th:text="*{content}" id="content_area"></textarea>
+  <h4>작성자</h4>
+  <input name="writer" type="text" th:field="*{writer}" readonly />
+  <button id="savebutton" type="button">수정완료</button>
+  <script id = "smartEditor" type="text/javascript">
+    var oEditors = [];
+    nhn.husky.EZCreator.createInIFrame({
+      oAppRef: oEditors,
+      elPlaceHolder : "content_area",
+      sSkinURI: "../js/smarteditor2-2.8.2.3/SmartEditor2Skin.html",
+      fCreator: "createSEditor2",
+      htParams: {
+        bUseToolbar : true,
+        bUseVerticalResizer : false,
+        bUseModeChanger : false
+      }
+    });
+    $(function (){
+      $("#savebutton").click(function (){
+        oEditors.getById["content_area"].exec("UPDATE_CONTENTS_FIELD",[]);
+        var category = $("#category").val();
+        var title = $("#title").val();
+        var content = document.getElementById("content_area").value;
+
+        var result = confirm("수정 하시겠습니까?");
+        if (result){
+          $("#modifyForm").submit();
+        }
+      });
+    });
+  </script>
+  <br>
+</form>
+</body>
+</html>

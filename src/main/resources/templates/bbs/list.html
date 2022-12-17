@@ -22,7 +22,7 @@
                 <div class="right">
                     <nav id="nav">
                         <ul>
-                            <li><a href="list" class="main-btn">All Contents</a></li>
+                            <li><a href="list" class="main-btn">자유게시판</a></li>
                             <li><a href="front" class="main-btn">Front-end</a></li>
                             <li><a href="back" class="main-btn">Back-end</a></li>
                             <li><a href="spring" class="main-btn">Springboot</a></li>
@@ -43,7 +43,6 @@
         </div>
     </div>
 <div class="wrap-content">
-    <div>
         <div class="container-content">
             <th:block th:each="bbs:${list}">
             <ol class="each-content" style="list-style: none">
@@ -71,7 +70,7 @@
             </div>
         </form>
         <div th:object="${pageMaker}">
-            <div style="text-align: center;">
+            <div>
                 <a class="changePage" th:if="*{prev}" th:href="*{startPage-1}"><code>&lt;</code></a>
                 <th:block th:each="num : ${#numbers.sequence(pageMaker.getStartPage(), pageMaker.getEndPage())}">
                     <code th:if="${pageMaker.criteria.getPageNum() == num}" th:text="${num}"></code>

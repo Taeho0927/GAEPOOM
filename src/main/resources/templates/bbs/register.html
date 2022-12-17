@@ -4,121 +4,81 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
   <title>Register</title>
+  <script src="//code.jquery.com/jquery-1.11.0.min.js"></script>
+  <script src="/js/smarteditor2-2.8.2.3/js/HuskyEZCreator.js" charset="utf-8"></script>
+  <link rel="stylesheet" href="/css/regist.css">
 </head>
 <body>
-<h1>Register(새 글 등록)</h1>
 <form method="post" action="/bbs/register" id="registForm">
+  <h4>카테고리</h4>
+  <select name="category" id="category">
+    <option value="">카테고리</option>
+    <option value="etc">자유게시판</option>
+    <option value="front">Front-End</option>
+    <option value="back">Back-End</option>
+    <option value="spring">Spring</option>
+    <option value="enb">Error & Bugfix</option>
+  </select>
   <h4>제목</h4>
-  <input name="title" placeholder="Title" type="text" />
-  <h4>내용</h4>
-  <textarea name="content" rows="6" placeholder="Content"></textarea>
+  <input id="title" name="title" placeholder="제목" type="text" />
   <h4>작성자</h4>
-  <input type="text" th:placeholder="${session.userName}" th:value="${session.userName}" readonly>
-  <h4>첨부파일</h4>
-  <div class="uploadDiv">
-    <input type="file" name="uploadFile" multiple />
+  <input type="text" id="username" th:placeholder="${session.userName}" th:value="${session.userName}" readonly>
+  <div id="content_box">
+  <textarea name="content" id="content_area"></textarea>
   </div>
-  <div class="uploadResult">
-    <ul></ul>
-  </div>
-  <input type="submit" value="Register" />
+  <button type="submit" id="savebutton">등록하기</button>
+  <script id = "smartEditor" type="text/javascript">
+    var oEditors = [];
+    nhn.husky.EZCreator.createInIFrame({
+      oAppRef: oEditors,
+      elPlaceHolder : "content_area",
+      sSkinURI: "../js/smarteditor2-2.8.2.3/SmartEditor2Skin.html",
+      fCreator: "createSEditor2",
+      htParams: {
+        bUseToolbar : true,
+        bUseVerticalResizer : false,
+        bUseModeChanger : false
+      }
+    });
+    $(function (){
+      $("#savebutton").click(function (){
+        oEditors.getById["content_area"].exec("UPDATE_CONTENTS_FIELD",[]);
+        var category = $("#category").val();
+        var title = $("#title").val();
+        var content = document.getElementById("content_area").value;
+
+        if (category == ""){
+          alert("카테고리를 선택해주세요");
+          return;
+        }
+        if (title == null || title == ""){
+          alert("제목을 입력해주세요");
+          $("#title").focus;
+          return;
+        }
+        if (content == "" || content == null || content == '&nbsp;'|| content == '<br>'){
+          alert("본문을 작성해주세요");
+          oEditors.getById["content_area"].exec("FOCUS");
+          return;
+        }
+        var result = confirm("등록 하시겠습니까?");
+        if (result){
+          $("#registForm").submit();
+        }
+      });
+    });
+  </script>
 </form>
 </body>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
 <script>
-
-
-  $(document).ready(function(){
-
-    let regex = new RegExp("(.*?)\.(exe|zip|sh|alz)$");
-    let maxSize = 5242880; // 5MB
-    let inputFile = $(".uploadDiv input")
-
-    let uploadResult = $(".uploadResult ul");
-
-    function showUploadFile(uploadResultArr){
-      let str = "";
-      $(uploadResultArr).each(function(i, obj){
-        console.log(obj.image);
-        if(!obj.image){
-          str += "<li data-path='" + obj.uploadPath + "' data-uuid='" + obj.uuid + "' ";
-          str += "data-filename='" + obj.fileName + "' data-type='" + obj.image + "'>";
-          str += "<img src='/img/attach.png' width='20px'>"  + obj.fileName + "</li>";
-          console.log(str);
-
-
-        }
-        else{
-          let fileCallPath = encodeURIComponent(obj.uploadPath + "/s_" + obj.fileName);
-          console.log(fileCallPath);
-          str += "<li data-path='" + obj.uploadPath + "' data-uuid='" + obj.uuid + "' ";
-          str += "data-filename='" + obj.fileName + "' data-type='" + obj.image + "'>";
-          str += "<img src='/upload/display?fileName=" + fileCallPath + "'> " + obj.fileName + "</li>";
-        }
-      });
-
-      uploadResult.append(str)
+  window.onload=function (){
+    var nologin = $('#username').val();
+    console.log(nologin);
+    if (nologin == null || nologin === ''){
+      alert("로그인 후에 글 작성이 가능합니다!");
+      location.href="/bbs/login";
     }
-
-    // 1. 첨부파일의 확장자 제한, 용량 제한
-    function checkExtension(fileName, fileSize){
-      if(regex.test(fileName)){
-        alert('업로드할 수 없는 파일 형식입니다.');
-        return false;
-      }
-      if(fileSize >= maxSize){
-        alert('용량이 너무 큽니다.');
-        return false;
-      }
-      return true;
-    }
-
-    $("input[type='file']").change(function(e){
-      let formData = new FormData();
-      let inputFile =$("input[name='uploadFile']");
-      let files = inputFile[0].files;
-      console.log(files);
-
-      // formData에 file추가
-      for(let i=0; i<files.length; i++){
-        if(!checkExtension(files[i].name, files[i].size)){
-          console.log("11" + files[i].name);
-          return;
-        }
-        console.log(files[i].name);
-        formData.append("uploadFile", files[i])
-      }
-
-      $.ajax({
-        url: "/upload/uploadAjaxAction",
-        processData : false,
-        contentType : false,
-        data : formData,
-        type : "POST",
-        success: function(result){
-          alert("upload OK");
-          console.log(result);
-          showUploadFile(result);
-          inputFile.val("");
-        }
-      });
-    });
-
-    $("input[type='submit']").on("click", function(e){
-      e.preventDefault();
-      let form = $("form#registForm");
-      let str = "";
-
-      $(".uploadResult ul li").each(function(i, obj){
-        console.log("1 " + $(obj).data("filename"));
-        str += "<input type='hidden' name='attachList[" + i + "].fileName' value='" + $(obj).data("filename") + "'>";
-        str += "<input type='hidden' name='attachList[" + i + "].uuid' value='" + $(obj).data("uuid") + "'>";
-        str += "<input type='hidden' name='attachList[" + i + "].uploadPath' value='" + $(obj).data("path") + "'>";
-        str += "<input type='hidden' name='attachList[" + i + "].image' value='" + $(obj).data("type") + "'>";
-      });
-
-      form.append(str).submit();
-    });
-  });
+  };
 </script>
 </html>
